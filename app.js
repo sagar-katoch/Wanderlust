@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const Listing = require("./models/listings.js");
+const methodOverride = require("method-override");
+
 
 
 const path = require("path");
@@ -11,7 +13,7 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
-
+app.use(methodOverride("_method"));  
 
 main().then(() => {
     console.log("succesfully connected to the database");
@@ -66,6 +68,44 @@ app.post("/listings", async (req, res) => {
     })
     await newListing.save();
     res.redirect("/listings")
+
+
+})
+
+// edit route
+app.get("/listings/:id/edit",async (req,res)=>{
+
+  let { id } = req.params;
+  const listing = await Listing.findById(id)
+
+res.render("listings/edit.ejs",{listing}); 
+
+})
+
+// update route
+app.put("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  let { title, description, image, price, country, location } = req.body;
+
+  let updatedListing = await Listing.findByIdAndUpdate(
+    id,
+    { title, description, image, price, country, location },
+    { runValidators: true, new: true }
+  );
+
+  console.log(updatedListing);
+
+  res.redirect(`/listings/${id}`);
+});
+
+
+// Delete route
+
+app.delete("/listings/:id",async (req,res)=>{
+let { id } = req.params;
+let deletedListing= await Listing.findByIdAndDelete(id);
+console.log(deletedListing);
+res.redirect("/listings")
 
 
 
