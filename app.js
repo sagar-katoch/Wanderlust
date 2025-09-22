@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Listing = require("./models/listings.js");
 const methodOverride = require("method-override");
-
+const ejsMate= require("ejs-mate");
 
 
 const path = require("path");
@@ -14,12 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride("_method"));  
+app.engine('ejs', ejsMate);
+
 
 main().then(() => {
     console.log("succesfully connected to the database");
 }).catch(err => console.log(err));
 
-
+ 
 
 
 async function main() {
@@ -37,7 +39,6 @@ app.get("/", (req, res) => {
 app.get("/listings", async (req, res) => {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", { allListings });
-
 
 })
 // new route
@@ -107,9 +108,10 @@ let deletedListing= await Listing.findByIdAndDelete(id);
 console.log(deletedListing);
 res.redirect("/listings")
 
-
-
 })
+
+
+
 
 
 // app.get("/testListing",async (req,res)=>{
@@ -132,5 +134,15 @@ app.listen(8080, () => {
     console.log("server succesfully running on the port No.8080");
 
 })
+
+
+
+
+
+
+
+
+
+
 
 
