@@ -1,24 +1,30 @@
-<body><%layout("layouts/boilerplate") %>
+<body><% layout("layouts/boilerplate") %>
     <h3>All Listings</h3>
-<!-- <form method="get" action="/listings/new">
-    <button>create a New Listing</button>
-</form> -->
+    <!-- <form method="get" action="/listings/new">
+        <button>create a New Listing</button>
+    </form> -->
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <%for(listings of allListings) {%>
-<div class="card" style="width: 20rem;">
-  <img src="<%=listings.image%>" class="card-img-top" alt="listening_image">
-  <div class="card-body">
-    <p class="card-text"><%=listings.title %>
-    <br>
-    &#8377;<%=listings.price.toLocaleString('en-IN')%>
-    
-    </p>
-  </div>
-</div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for (let listings of allListings) { %>
+            <a class="listing-link" href="/listings/<%= listings._id %>">
+                <div class="card">
+                    <img style="height: 20rem;" src="<%= listings.image %>" class="card-img-top" alt="listing_image">
+                    
+                    <!-- Removed duplicate inner <div class="card"> -->
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= listings.title %></b>
+                            <br>
+                            &#8377;<%= listings.price.toLocaleString("en-IN") %>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
+</body>
 
-  <% }%>
-</div>
 
 
 

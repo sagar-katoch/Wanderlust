@@ -1,27 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-</head>
-<body>
-    <h3>Create a New Listing</h3>
-   <form method="POST" action="/listings">
-    <input type="text" name="title" placeholder="enter title">
-    <br><br>
-    <textarea name="description" placeholder="enter description"></textarea>
-    <br><br>
-    <input type="text" name="image" placeholder="enter image URL/link">
-    <br><br>
-    <input type="number" name="price" placeholder="enter price">
-    <br><br>
-     <input type="text" name="country" placeholder="enter country">
-    <br><br>
-    <input type="text" name="location" placeholder="enter location">
-    <br><br>
-    <button>Add</button>
 
-   </form>
+<% layout("layouts/boilerplate") %>
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+    <h3>Create a New Listing</h3>
+    <form method="POST" action="/listings">
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image Link/URL</label>
+            <input type="text" name="image" id="image" class="form-control" placeholder="Enter image URL/link">
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" name="price" id="price" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" name="country" id="country" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" name="location" id="location" class="form-control">
+        </div>
+
+        <br><br>
+        <button class="btn btn-dark" type="submit">Add</button>
+    </form>
+    </div>
+    </div>
 </body>
-</html>
+
+
